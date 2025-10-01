@@ -1,6 +1,24 @@
 # -------------------------------
 # Stage 1: Composer dependencies
 # -------------------------------
+  # Stage 1: Composer dependencies
+FROM php:8.2-cli AS build
+
+WORKDIR /app
+
+# Copy everything (not just composer.json)
+COPY . .
+
+# Install PHP extensions for composer
+RUN apt-get update && apt-get install -y \
+    libicu-dev libonig-dev libzip-dev libpng-dev libjpeg-dev libfreetype6-dev \
+    && docker-php-ext-install intl gd zip mbstring
+
+# Install Composer dependencies
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+RUN composer install --no-dev --optimize-autoloader
 FROM composer:2 AS build
 
 WORKDIR /app
