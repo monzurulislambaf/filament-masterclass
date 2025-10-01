@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Copy composer files and install dependencies
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --prefer-dist
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-intl --ignore-platform-req=ext-gd
 
 # -------------------------------
 # Stage 2: PHP-FPM Production
@@ -28,6 +28,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
+    libjpeg-dev \
+    libfreetype6-dev \
     && docker-php-ext-configure gd --with-jpeg --with-freetype \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath intl gd zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -38,10 +40,10 @@ COPY . .
 # Copy composer dependencies from build stage
 COPY --from=build /app/vendor ./vendor
 
-# Set permissions for Laravel storage and cache
+# Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Expose port (CapRover will handle Nginx routing)
+# Expose port
 EXPOSE 80
 
 # Start PHP-FPM
