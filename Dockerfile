@@ -42,6 +42,7 @@ COPY --from=build /app/vendor ./vendor
 
 # Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Expose port
 EXPOSE 80
