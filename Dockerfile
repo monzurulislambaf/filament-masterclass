@@ -1,5 +1,5 @@
 # Use PHP 8.3 CLI as base
-FROM php:8.2-fpm
+FROM php:8.3-cli
 
 # Install system dependencies + required dev headers for PHP extensions
 RUN apt-get update && apt-get install -y \
@@ -46,4 +46,4 @@ COPY ./deploy/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 EXPOSE 80
 
 # Start supervisord (runs PHP-FPM + Nginx)
-CMD ["php-fpm"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
