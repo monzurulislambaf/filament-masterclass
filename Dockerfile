@@ -1,5 +1,5 @@
 # Use PHP 8.3 CLI as base
-FROM php:8.3-cli
+FROM php:8.3-fpm
 
 # Install system dependencies + required dev headers for PHP extensions
 RUN apt-get update && apt-get install -y \
@@ -15,8 +15,9 @@ RUN apt-get update && apt-get install -y \
   nginx \
   libicu-dev \
   && apt-get clean
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
-RUN docker-php-ext-install intl
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip intl
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -46,4 +47,5 @@ COPY ./deploy/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 EXPOSE 80
 
 # Start supervisord (runs PHP-FPM + Nginx)
-# CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
