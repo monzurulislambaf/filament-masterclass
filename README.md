@@ -1,61 +1,40 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <a href="https://github.com/laravel/laravel">
+    <img src="https://avatars3.githubusercontent.com/u/958072?s=200&v=4" height="60">
+  </a>
+  +
+  <a href="https://github.com/CapRover/CapRover">
+    <img src="https://avatars0.githubusercontent.com/u/46361891?s=200&v=4" height="60">
+  </a>
+</p>
+<h1 align="center">
+  Laravel + CapRover
+</h1>
+<p align="center">
+    Template to deploy a <a href="https://github.com/laravel/laravel">Laravel</a> app to a server managed by <a href="https://github.com/CapRover/CapRover">CapRover</a>.
 </p>
 
-## About Laravel
+<p align="center">
+    <strong>
+        <a href="https://jack.bryce-smith.com/💡/laravel-docker-caprover">jack.bryce-smith.com/💡/laravel-docker-caprover</a>
+    </strong>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- 🐳 Lightweight [PHP](https://github.com/jackbrycesmith/laravel-caprover-template/blob/master/.deploy/Dockerfile#L1) image with [common extensions](https://github.com/jackbrycesmith/laravel-caprover-template/blob/master/.deploy/Dockerfile#L21)
+  - [Overridable PHP version](https://github.com/jackbrycesmith/laravel-caprover-template/pull/13)
+  - Add other required extensions easily; [thanks to mlocati/docker-php-extension-installer](https://github.com/mlocati/docker-php-extension-installer)
+- 📦 [Installs composer dependencies](https://github.com/jackbrycesmith/laravel-caprover-template/blob/master/.deploy/Dockerfile#L30); cached between builds if no changes
+- ⚡️ Served via [Caddy 2](https://github.com/caddyserver/caddy)
+- ⏰ [Setup to call](https://github.com/jackbrycesmith/laravel-caprover-template/blob/master/.deploy/Dockerfile#L11) the [Laravel command scheduler](https://laravel.com/docs/7.x/scheduling)
+- 🛰 Straightforward websockets support
+- 💪 [Services will restart](https://github.com/jackbrycesmith/laravel-caprover-template/blob/master/.deploy/config/supervisor.conf) thanks to [supervisord](https://github.com/ochinchina/supervisord)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Usage
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. [Install Laravel](https://laravel.com/docs/installation)
+  > *e.g. Zsh one-liner with the [Laravel Installer](https://github.com/laravel/installer):*
+  > <pre><code>laravel new my-app --prompt-jetstream && mv my-app/*(DN) ./ && rm -rf my-app</code></pre>
+2. <a href="https://jack.bryce-smith.com/💡/laravel-docker-caprover"><i>jack.bryce-smith.com/💡/</i>laravel-docker-caprover</a>
+3. [Deploy to CapRover](https://caprover.com/docs/deployment-methods.html), e.g. `caprover deploy`
