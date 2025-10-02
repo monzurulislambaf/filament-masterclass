@@ -1,5 +1,5 @@
 # Use PHP 8.3 CLI as base
-FROM php:8.3-cli
+FROM php:8.2-fpm
 
 # Install system dependencies + required dev headers for PHP extensions
 RUN apt-get update && apt-get install -y \
